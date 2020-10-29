@@ -1,0 +1,363 @@
+<!doctype html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/escaperoomstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="src/jquery.ui.touch-punch.min.js"></script>
+    <script src="src/baby.js"></script>
+    <title>SuEscape</title>
+    </head>
+<body>
+    <h1>Escape From Sue's Home</h1>
+    <!--status-->
+    <div id="status1" style="display: none; color: green">BY
+    </div>
+    <div id="status2" style="display: none; color: green">A
+    </div>
+    <div id="status3" style="display: none; color: green">B
+    </div>
+    <!--intro-->
+    <div id="intro" style="display: block;">
+    <h2>Introduction</h2>
+    <p>You were invited to visit Sue for Christmas.<br>
+        However, you find yourself locked in her apartment<br>
+        and Sue nowhere to be found.<br>
+        Now you have to gather clues around her home<br>
+        and attempt to escape.<br>
+        Good luck...</p>
+        <img src="images/door.jpeg" width="15%"><br>
+        <button onclick="showMainRoom()">START</button>
+    </div>
+    <!--main room-->
+    <div id="mainRoom" style="display: none;">
+    <h2>Welcome Home</h2>
+        <img src="images/mainRoom.png" usemap="#mainRoomMap">
+        <map name="mainRoomMap">
+        <area shape="rect" coords="360,30,445,100" onclick="openPortraitModal()">
+        <area shape="rect" coords="90,105,350,180" onclick="openSofaModal()">
+        <area shape="rect" coords="485,105,620,165" onclick="openTvModal()">
+        <area shape="rect" coords="270,285,420,340" onclick="showMainPuzzle()">
+        <area shape="rect" coords="0,205,60,225" onclick="showKitchenRoom()">
+        <area shape="rect" coords="625,190,680,210" onclick="showGuestRoom()">
+        <area shape="rect" coords="625,240,685,260" onclick="showMasterRoom()">
+        </map>
+    </div>
+    <!--kitchen room-->
+    <div id="kitchenRoom" style="display: none;">
+    <h2>The Kitchen</h2>
+        <img src="images/kitchenRoom.png" usemap="#kitchenMap">
+        <map name="kitchenMap">
+        <area shape="rect" coords="565,230,625,250" onclick="showMainRoom()">
+        <area shape="rect" coords="35,155,165,195" onclick="openSinkModal()">
+        <area shape="rect" coords="260,40,305,90" onclick="openNoteModal()">
+        <area shape="rect" coords="270,180,370,255" onclick="openMorseModal()">
+        <area shape="rect" coords="455,30,535,250" onclick="showKitchenPuzzle()">
+        </map>
+    </div>
+    <!--guest room-->
+    <div id="guestRoom" style="display: none;">
+    <h2>The Guest Room</h2>
+        <img src="images/guestRoom.png" usemap="#guestMap">
+        <map name="guestMap">
+        <area shape="rect" coords="0,220,60,240" onclick="showMainRoom()">
+        <area shape="rect" coords="360,30,440,105" onclick="openWindowModal()">
+        <area shape="rect" coords="515,60,620,240" onclick="openBedModal()">
+        <area shape="rect" coords="160,80,210,140" onclick="openTabletModal()">
+        <area shape="rect" coords="350,200,465,260" onclick="showGuestPuzzle()">
+        </map>
+    </div>
+    <!--master room-->
+    <div id="masterRoom" style="display: none;">
+    <h2>The Master Room</h2>
+    <img src="images/masterRoom.png" usemap="#masterMap">
+        <map name="masterMap">
+        <area shape="rect" coords="0,220,60,240" onclick="showMainRoom()">
+        <area shape="rect" coords="505,20,585,100" onclick="openWindowModal()">
+        <area shape="rect" coords="290,50,385,230" onclick="openBedModal2()">
+        <area shape="rect" coords="505,200,590,270" onclick="openBinModal()">
+        <area shape="rect" coords="70,190,175,265" onclick="showMasterPuzzle()">
+        </map>
+    </div>
+    <!--outro-->
+    <div id="outro" style="display: none;">
+    <h2>Congratulations!</h2>
+    <p>You have managed to escape<br>
+        from Sue's home!<br>
+        If you have not<br>
+        pick up the hints, she is pregnant<br>
+        since August 2020.<br>
+        Estimated delivery date is 30 April 2021<br>
+        <img src="images/baby.jpg" width="10%"></p>
+        <button onclick="window.location.reload()">PLAY AGAIN</button>
+    </div>
+    <!--main puzzle-->
+    <div id="mainPuzzle" style="display: none;">
+    <h2>The Exit</h2>
+        <p>Use the clues you have obtained to escape!</p>
+        <table border="1">
+        <tr><td>B<input type="checkbox" id="c1"></td><td>1<input type="checkbox" id="c2"></td><td>C<input type="checkbox" id="c3"></td><td>G<input type="checkbox" id="c4"></td></tr>
+        <tr><td>7<input type="checkbox" id="c5"></td><td>Z<input type="checkbox" id="c6"></td><td>B<input type="checkbox" id="c7"></td><td>F<input type="checkbox" id="c8"></td></tr>
+        <tr><td>Y<input type="checkbox" id="c9"></td><td>A<input type="checkbox" id="c10"></td><td>2<input type="checkbox" id="c11"></td><td>D<input type="checkbox" id="c12"></td></tr>
+        <tr><td>3<input type="checkbox" id="c13"></td><td>E<input type="checkbox" id="c14"></td><td>A<input type="checkbox" id="c15"></td><td>Y<input type="checkbox" id="c16"></td></tr>
+        </table><br>
+        <button onclick="checkMainPuzzle()">EXIT</button>
+    </div>
+    <!--kitchen puzzle-->
+    <div id="kitchenPuzzle" style="display: none;">
+    <h2>The Smart Fridge</h2>
+        <p>Password: <input id="pw"><button onclick="checkKitchenPuzzle()">ENTER</button></p>
+    </div>
+    <!--guest puzzle-->
+    <div id="guestPuzzle" style="display: none;">
+    <h2>The Chest</h2>
+        <p>You see a locked chest.</p>
+    <select id="p1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+        <select id="p2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select> / 
+        <select id="p3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+        <select id="p4">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select> / 
+        <select id="p5">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+        <select id="p6">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select><br><br>
+        <button onclick="checkGuestPuzzle()">UNLOCK</button>
+    </div>
+    <!--master room puzzle-->
+    <div id="masterPuzzle" style="display: none;">
+    <h2>An Incomplete Puzzle</h2>
+    <div id="content">
+  <div id="cardPile"> </div>
+  <div id="cardSlots"> </div>
+    </div>
+    </div>
+    <!--main room modals-->
+    <div id="portraitModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Family Portrait</h2>
+    </div>
+    <div class="modal-body">
+        <p>You see a happy family.<br><img src="images/familyPortrait.jpeg" width="50%"></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="sofaModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Sofa</h2>
+    </div>
+    <div class="modal-body">
+        <p>You see the family dogs, Abby and Monster.<br><img src="images/sofaDogs.jpeg" width="50%"></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="tvModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The TV</h2>
+    </div>
+    <div class="modal-body">
+        <p>The TV is switched on.<br><img src="images/edd.gif" width="50%"></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="warningModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Exit</h2>
+    </div>
+    <div class="modal-body">
+        <p>Please obtain all clues before attempting to exit.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="failModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Oops...</h2>
+    </div>
+    <div class="modal-body">
+        <p>Nothing seem to happen.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="exitSuccess" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Congratulations!</h2>
+    </div>
+    <div class="modal-body">
+        <p>You managed to escape.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <!--kitchen modal-->
+    <div id="sinkModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Sink</h2>
+    </div>
+    <div class="modal-body">
+        <p>There seems to be a leakage. Drip. Drip. Drip.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="noteModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Post-It</h2>
+    </div>
+    <div class="modal-body">
+        <p>You see a post-it on the wall.<br><br><i>enter the morse code into the smart fridge</i></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="morseModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Morse Code</h2>
+    </div>
+    <div class="modal-body">
+        <p>You find a piece of paper on the floor.<br><img src="images/morseCode.png" width="50%"></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="kitchenSuccess" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Congratulations!</h2>
+    </div>
+    <div class="modal-body">
+        <p>The smart fridge opened and you obtained a clue.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <!--guest room modal-->
+    <div id="windowModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Window</h2>
+    </div>
+    <div class="modal-body">
+        <p>You looked out and see a beautiful scenery.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="bedModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Queen-size Bed</h2>
+    </div>
+    <div class="modal-body">
+        <p>The bed looks comfortable, do you want to rest?</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="tabletModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The iPad</h2>
+    </div>
+    <div class="modal-body">
+        <p>You see an unfinished puzzle.<br><br><img src="images/suduko.png" width="30%"></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="guestSuccess" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Congratulations!</h2>
+    </div>
+    <div class="modal-body">
+        <p>The chest opens and you obtained a clue.</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <!--master room modals-->
+    <div id="bedModal2" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The King-size Bed</h2>
+    </div>
+    <div class="modal-body">
+        <p>The bed looks comfortable, do you want to rest?</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="binModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>The Trash Bin</h2>
+    </div>
+    <div class="modal-body">
+        <p>You find a doctor's memo:<br><i>for bloatedness and nausea</i></p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+    <div id="masterSuccess" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Congratulations!</h2>
+    </div>
+    <div class="modal-body">
+        <p>The puzzle seem to form a new clue...</p>
+    </div>
+    <div class="modal-footer">
+    </div></div></div>
+</body>
